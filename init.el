@@ -8,8 +8,9 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(setq inhibit-startup-message t)
-(setq auto-save-default nil)
+(setq inhibit-startup-message t
+      auto-save-default nil
+      make-backup-files nil)
 
 ;; Window numbering
 (require 'window-numbering)
