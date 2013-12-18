@@ -30,6 +30,11 @@
 ;; C/C++
 (setq c-default-style "linux"
       c-basic-offset 4)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(add-hook 'c++-mode-hook
+	  (lambda()
+	    (define-key c++-mode-map (kbd "C-c c") 'recompile)
+	    (define-key c-mode-map (kbd "C-c c") 'recompile)))
 
 ;; Zenburn
 (load-theme 'zenburn t)
