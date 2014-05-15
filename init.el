@@ -1,10 +1,26 @@
-;; Melpa
+;; Packages
+(setq my-packages '(zenburn-theme
+                     window-numbering
+                     rust-mode
+                     projectile
+                     magit
+                     git-rebase-mode
+                     git-commit-mode
+                     flx-ido
+                     flx
+                     ethan-wspace))
 (require 'package)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(setq package-archives '(("elpa" . "http://tromey.com/elpa/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")))
 (package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+(dolist (package my-packages)
+  (unless (package-installed-p package)
+    (package-install package)))
 
-;; General stuff 
+;; General stuff
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -12,12 +28,14 @@
       auto-save-default nil
       make-backup-files nil)
 (setq-default indent-tabs-mode nil)
-(delete 'Git vc-handled-backends)
 (column-number-mode 1)
 (global-hl-line-mode 1)
-(setq mouse-wheel-scroll-amount '(5))
+(setq mouse-wheel-scroll-amount 5)
 (setq mouse-wheel-progressive-speed nil)
+
+;; Global keys
 (global-set-key (kbd "C-^") 'join-line)
+(global-set-key (kbd "C-c c") 'recompile)
 
 ;; Abbrev
 (quietly-read-abbrev-file)
@@ -36,16 +54,10 @@
 ;; Magit
 (require 'magit)
 (global-set-key (kbd "C-c g") 'magit-status)
+(delete 'Git vc-handled-backends)
 
 ;; Projectile
 (projectile-global-mode)
-
-;; Prodigy
-(require 'prodigy)
-(prodigy-define-service
-  :name "Kube"
-  :command "~/Projects/Kube/local/test"
-  :cwd "~/Projects/Kube/local")
 
 ;; ERC
 (setq erc-autojoin-channels-alist '(("freenode.net" "##cpp ##cpp-general #emacs")
@@ -57,9 +69,10 @@
       c-basic-offset 4)
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.icc\\'" . c++-mode))
-(add-hook 'c++-mode-hook
-	  (lambda()
-	    (define-key c-mode-base-map (kbd "C-c c") 'recompile)))
 
 ;; Zenburn
 (load-theme 'zenburn t)
+
+;; ethan-wspace
+(require 'ethan-wspace)
+(global-ethan-wspace-mode 1)
