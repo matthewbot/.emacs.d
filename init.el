@@ -1,14 +1,12 @@
 ;; Packages
 (setq my-packages '(zenburn-theme
-                     window-numbering
-                     rust-mode
-                     projectile
-                     magit
-                     git-rebase-mode
-                     git-commit-mode
-                     flx-ido
-                     flx
-                     ethan-wspace))
+                    rust-mode
+                    projectile
+                    magit
+                    git-commit-mode
+                    gitignore-mode
+                    flx-ido
+                    flx))
 (require 'package)
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
@@ -32,6 +30,8 @@
 (global-hl-line-mode 1)
 (setq mouse-wheel-scroll-amount 5)
 (setq mouse-wheel-progressive-speed nil)
+(set-face-attribute 'default nil :height 85)
+(desktop-save-mode 1)
 
 ;; Global keys
 (global-set-key (kbd "C-^") 'join-line)
@@ -39,10 +39,6 @@
 
 ;; Abbrev
 (quietly-read-abbrev-file)
-
-;; Window numbering
-(require 'window-numbering)
-(window-numbering-mode t)
 
 ;; Ido
 (require 'flx-ido)
@@ -64,6 +60,16 @@
                                     ("mozilla.org" "#rust #rust-gamedev")))
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
 
+;; Window numbering
+(add-to-list 'load-path "~/.emacs.d/window-numbering")
+(require 'window-numbering)
+(window-numbering-mode t)
+
+;; ws-butler
+(add-to-list 'load-path "~/.emacs.d/ethan-wspace/lisp")
+(require 'ethan-wspace)
+(global-ethan-wspace-mode 1)
+
 ;; C/C++
 (setq c-default-style "linux"
       c-basic-offset 4)
@@ -72,7 +78,15 @@
 
 ;; Zenburn
 (load-theme 'zenburn t)
-
-;; ethan-wspace
-(require 'ethan-wspace)
-(global-ethan-wspace-mode 1)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(mode-require-final-newline nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

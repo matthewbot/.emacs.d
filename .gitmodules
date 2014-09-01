@@ -1,0 +1,6 @@
+[submodule "window-numbering"]
+	path = window-numbering
+	url = https://github.com/nschum/window-numbering.el
+[submodule "ethan-wspace"]
+	path = ethan-wspace
+	url = https://github.com/glasserc/ethan-wspace.git
